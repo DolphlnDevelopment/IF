@@ -49,7 +49,7 @@ public class GuiListener implements Listener {
         }
 
         InventoryView view = event.getView();
-        Inventory inventory = event.getClickedInventory();
+        Inventory inventory = event.getRawSlot() == event.getSlot() ? view.getTopInventory() : view.getBottomInventory();
 
         if (inventory == null) {
             gui.callOnOutsideClick(event);
