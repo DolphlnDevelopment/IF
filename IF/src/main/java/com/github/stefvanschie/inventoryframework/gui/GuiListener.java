@@ -3,12 +3,12 @@ package com.github.stefvanschie.inventoryframework.gui;
 import com.github.stefvanschie.inventoryframework.gui.type.*;
 import com.github.stefvanschie.inventoryframework.gui.type.util.Gui;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.*;
@@ -49,7 +49,7 @@ public class GuiListener implements Listener {
         }
 
         InventoryView view = event.getView();
-        Inventory inventory = view.getInventory(event.getRawSlot());
+        Inventory inventory = event.getClickedInventory();
 
         if (inventory == null) {
             gui.callOnOutsideClick(event);
@@ -64,158 +64,6 @@ public class GuiListener implements Listener {
         }
 
         gui.click(event);
-    }
-
-    /**
-     * Resets the items into the correct positions for anvil guis
-     *
-     * @param event the event fired
-     * @since 0.8.0
-     */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void resetItemsAnvil(@NotNull InventoryClickEvent event) {
-        InventoryHolder holder = event.getInventory().getHolder();
-
-        if (!(holder instanceof AnvilGui) || !(event.getWhoClicked() instanceof Player)) {
-            return;
-        }
-
-        ((AnvilGui) holder).handleClickEvent(event);
-    }
-
-    /**
-     * Resets the items into the correct positions for beacon guis
-     *
-     * @param event the event fired
-     * @since 0.8.0
-     */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void resetItemsBeacon(@NotNull InventoryClickEvent event) {
-        InventoryHolder holder = event.getInventory().getHolder();
-
-        if (!(holder instanceof BeaconGui) || !(event.getWhoClicked() instanceof Player)) {
-            return;
-        }
-
-        ((BeaconGui) holder).handleClickEvent(event);
-    }
-
-    /**
-     * Resets the items into the correct positions for cartography table guis
-     *
-     * @param event the event fired
-     * @since 0.8.0
-     */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void resetItemsCartographyTable(@NotNull InventoryClickEvent event) {
-        InventoryHolder holder = event.getInventory().getHolder();
-
-        if (!(holder instanceof CartographyTableGui) || !(event.getWhoClicked() instanceof Player)) {
-            return;
-        }
-
-        ((CartographyTableGui) holder).handleClickEvent(event);
-    }
-
-    /**
-     * Resets the items into the correct positions for enchanting table guis
-     *
-     * @param event the event fired
-     * @since 0.8.0
-     */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void resetItemsEnchantingTable(@NotNull InventoryClickEvent event) {
-        InventoryHolder holder = event.getInventory().getHolder();
-
-        if (!(holder instanceof EnchantingTableGui) || !(event.getWhoClicked() instanceof Player)) {
-            return;
-        }
-
-        ((EnchantingTableGui) holder).handleClickEvent(event);
-    }
-
-    /**
-     * Resets the items into the correct positions for grindstone guis
-     *
-     * @param event the event fired
-     * @since 0.8.0
-     */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void resetItemsGrindstone(@NotNull InventoryClickEvent event) {
-        InventoryHolder holder = event.getInventory().getHolder();
-
-        if (!(holder instanceof GrindstoneGui) || !(event.getWhoClicked() instanceof Player)) {
-            return;
-        }
-
-        ((GrindstoneGui) holder).handleClickEvent(event);
-    }
-
-    /**
-     * Resets the items into the correct positions for stonecutter guis
-     *
-     * @param event the event fired
-     * @since 0.8.0
-     */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void resetItemsStonecutter(@NotNull InventoryClickEvent event) {
-        InventoryHolder holder = event.getInventory().getHolder();
-
-        if (!(holder instanceof StonecutterGui) || !(event.getWhoClicked() instanceof Player)) {
-            return;
-        }
-
-        ((StonecutterGui) holder).handleClickEvent(event);
-    }
-
-    /**
-     * Resets the items into the correct positions for smithing table guis
-     *
-     * @param event the event fired
-     * @since 0.8.0
-     */
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void resetItemsSmithingTable(@NotNull InventoryClickEvent event) {
-        InventoryHolder holder = event.getInventory().getHolder();
-
-        if (!(holder instanceof SmithingTableGui) || !(event.getWhoClicked() instanceof Player)) {
-            return;
-        }
-
-        ((SmithingTableGui) holder).handleClickEvent(event);
-    }
-
-    /**
-     * Handles users picking up items while their bottom inventory is in use.
-     *
-     * @param event the event fired when an entity picks up an item
-     * @since 0.6.1
-     */
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onEntityPickupItem(@NotNull EntityPickupItemEvent event) {
-        if (!(event.getEntity() instanceof HumanEntity)) {
-            return;
-        }
-
-        Gui gui = getGui(((HumanEntity) event.getEntity()).getOpenInventory().getTopInventory());
-
-        if (gui == null || !gui.isPlayerInventoryUsed()) {
-            return;
-        }
-
-        int leftOver = gui.getHumanEntityCache().add((HumanEntity) event.getEntity(), event.getItem().getItemStack());
-
-        if (leftOver == 0) {
-            event.getItem().remove();
-        } else {
-            ItemStack itemStack = event.getItem().getItemStack();
-
-            itemStack.setAmount(leftOver);
-
-            event.getItem().setItemStack(itemStack);
-        }
-
-        event.setCancelled(true);
     }
 
     /**
@@ -238,7 +86,7 @@ public class GuiListener implements Listener {
         if (inventorySlots.size() > 1) {
             boolean top = false, bottom = false;
 
-            for (int inventorySlot : event.getRawSlots()) {
+            /*for (int inventorySlot : event.getRawSlots()) {
                 Inventory inventory = view.getInventory(inventorySlot);
 
                 if (view.getTopInventory().equals(inventory)) {
@@ -250,20 +98,19 @@ public class GuiListener implements Listener {
                 if (top && bottom) {
                     break;
                 }
-            }
+            }*/
 
             gui.callOnGlobalDrag(event);
 
-            if (top) {
+            /*if (top) {
                 gui.callOnTopDrag(event);
             }
 
             if (bottom) {
                 gui.callOnBottomDrag(event);
-            }
+            }*/
         } else {
             int index = inventorySlots.toArray(new Integer[0])[0];
-            InventoryType.SlotType slotType = view.getSlotType(index);
 
             boolean even = event.getType() == DragType.EVEN;
 
@@ -271,7 +118,7 @@ public class GuiListener implements Listener {
             InventoryAction inventoryAction = even ? InventoryAction.PLACE_SOME : InventoryAction.PLACE_ONE;
 
             //this is a fake click event, firing this may cause other plugins to function incorrectly, so keep it local
-            InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(view, slotType, index, clickType,
+            InventoryClickEvent inventoryClickEvent = new InventoryClickEvent(view, InventoryType.SlotType.QUICKBAR, index, clickType,
                 inventoryAction);
 
             onInventoryClick(inventoryClickEvent);
@@ -297,9 +144,6 @@ public class GuiListener implements Listener {
         HumanEntity humanEntity = event.getPlayer();
         PlayerInventory playerInventory = humanEntity.getInventory();
 
-        //due to a client issue off-hand items appear as ghost items, this updates the off-hand correctly client-side
-        playerInventory.setItemInOffHand(playerInventory.getItemInOffHand());
-
         if (!gui.isUpdating()) {//this is a hack to remove items correctly when players press the x button in a beacon
             Bukkit.getScheduler().runTask(JavaPlugin.getProvidingPlugin(getClass()), () -> {
                 gui.callOnClose(event);
@@ -316,12 +160,6 @@ public class GuiListener implements Listener {
 
             if (gui.getViewerCount() == 1) {
                 activeGuiInstances.remove(gui);
-            }
-
-            if (gui instanceof AnvilGui) {
-                ((AnvilGui) gui).handleClose(humanEntity);
-            } else if (gui instanceof MerchantGui) {
-                ((MerchantGui) gui).handleClose(humanEntity);
             }
         });
     }

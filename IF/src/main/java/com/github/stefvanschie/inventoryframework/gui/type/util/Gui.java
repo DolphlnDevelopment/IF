@@ -462,7 +462,7 @@ public abstract class Gui {
      * @since 0.9.0
      */
     public void callOnTopDrag(@NotNull InventoryDragEvent event) {
-        callCallback(onTopDrag, event, "onTopDrag");
+        // callCallback(onTopDrag, event, "onTopDrag");
     }
 
     /**
@@ -484,7 +484,7 @@ public abstract class Gui {
      * @since 0.9.0
      */
     public void callOnBottomDrag(@NotNull InventoryDragEvent event) {
-        callCallback(onBottomDrag, event, "onBottomDrag");
+        // callCallback(onBottomDrag, event, "onBottomDrag");
     }
 
     /**
@@ -638,25 +638,6 @@ public abstract class Gui {
         registerPane("slider", Slider::load);
         registerPane("togglebutton", ToggleButton::load);
 
-        registerGui("anvil", AnvilGui::load);
-        registerGui("barrel", BarrelGui::load);
-        registerGui("beacon", BeaconGui::load);
-        registerGui("blast-furnace", BlastFurnaceGui::load);
-        registerGui("brewing-stand", BrewingStandGui::load);
-        registerGui("cartography-table", CartographyTableGui::load);
         registerGui("chest", ChestGui::load);
-        registerGui("crafting-table", CraftingTableGui::load);
-        registerGui("dispenser", DispenserGui::load);
-        registerGui("dropper", DropperGui::load);
-        registerGui("enchanting-table", EnchantingTableGui::load);
-        registerGui("ender-chest", EnderChestGui::load);
-        registerGui("furnace", FurnaceGui::load);
-        registerGui("grindstone", GrindstoneGui::load);
-        registerGui("hopper", HopperGui::load);
-        registerGui("merchant", MerchantGui::load);
-        registerGui("shulker-box", ShulkerBoxGui::load);
-        registerGui("smithing-table", SmithingTableGui::load);
-        registerGui("smoker", SmokerGui::load);
-        registerGui("stonecutter", StonecutterGui::load);
     }
 }

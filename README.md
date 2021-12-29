@@ -1,6 +1,8 @@
 # IF <a href="https://discord.gg/RXmy4HdR4x"><img align="right" src="https://img.shields.io/discord/780514939293925407" alt="Discord guild"></a>
 
-*This framework works for Minecraft versions 1.14-1.17*
+## Modified to work with 1.8.8 by Dolphln. Use Jitpack
+
+*This framework works for Minecraft versions 1.8.8*
 
 An inventory framework for managing GUIs
 

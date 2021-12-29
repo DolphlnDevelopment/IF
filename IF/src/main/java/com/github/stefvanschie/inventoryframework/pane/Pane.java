@@ -7,12 +7,9 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.exception.XMLLoadException;
 import com.github.stefvanschie.inventoryframework.exception.XMLReflectionException;
 import com.github.stefvanschie.inventoryframework.util.SkullUtil;
-import com.github.stefvanschie.inventoryframework.util.UUIDTagType;
 import com.github.stefvanschie.inventoryframework.util.XMLUtil;
 import com.google.common.primitives.Primitives;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -370,19 +367,17 @@ public abstract class Pane {
                                 if (!innerNode.getNodeName().equals("enchantment"))
                                     continue;
 
-                                Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(
+                                /*Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(
                                     innerElementChild.getAttribute("id").toUpperCase(Locale.getDefault())
-                                ));
+                                ));*/
 
-                                if (enchantment == null) {
-                                    throw new XMLLoadException("Enchantment cannot be found");
-                                }
+                                throw new XMLLoadException("Enchantment cannot be found");
 
-                                int level = Integer.parseInt(innerElementChild.getAttribute("level"));
+                                // int level = Integer.parseInt(innerElementChild.getAttribute("level"));
 
-                                itemMeta.addEnchant(enchantment, level, true);
-                                itemStack.setItemMeta(itemMeta);
-                                break;
+                                // itemMeta.addEnchant(enchantment, level, true);
+                                // itemStack.setItemMeta(itemMeta);
+                                // break;
                         }
                     }
                 } else if (nodeName.equals("displayname")) {
@@ -549,7 +544,8 @@ public abstract class Pane {
             return null;
         }
 
-        UUID uuid = meta.getPersistentDataContainer().get(GuiItem.KEY_UUID, UUIDTagType.INSTANCE);
+        // UUID uuid = meta.getPersistentDataContainer().get(GuiItem.KEY_UUID, UUIDTagType.INSTANCE);
+        UUID uuid = null;
         if (uuid == null) {
             return null;
         }

@@ -52,9 +52,9 @@ public abstract class VariableBar extends Pane implements Orientable, Flippable 
         this.fillPane = new OutlinePane(0, 0, length, height);
         this.backgroundPane = new OutlinePane(0, 0, length, height);
 
-        this.fillPane.addItem(new GuiItem(new ItemStack(Material.GREEN_STAINED_GLASS_PANE),
+        this.fillPane.addItem(new GuiItem(new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 5),
             event -> event.setCancelled(true)));
-        this.backgroundPane.addItem(new GuiItem(new ItemStack(Material.RED_STAINED_GLASS_PANE),
+        this.backgroundPane.addItem(new GuiItem(new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15),
             event -> event.setCancelled(true)));
 
         this.fillPane.setRepeat(true);

@@ -36,7 +36,7 @@ public final class SkullUtil {
      */
     @NotNull
     public static ItemStack getSkull(@NotNull String id) {
-        ItemStack item = new ItemStack(Material.PLAYER_HEAD);
+        ItemStack item = new ItemStack(Material.SKULL, 1, (short) 3);
         ItemMeta itemMeta = Objects.requireNonNull(item.getItemMeta());
         setSkull(itemMeta, id);
         item.setItemMeta(itemMeta);

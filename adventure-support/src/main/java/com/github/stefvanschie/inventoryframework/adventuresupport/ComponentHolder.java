@@ -2,8 +2,8 @@ package com.github.stefvanschie.inventoryframework.adventuresupport;
 
 import com.google.gson.JsonElement;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+// import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+// import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryType;
@@ -29,14 +29,14 @@ public abstract class ComponentHolder extends TextHolder {
      */
     @Nullable
     private static Boolean nativeAdventureSupport;
-    
+
     /**
      * The serializer to use when converting wrapped values to legacy strings.
      * A null value indicates that we haven't created the serializer yet.
      * This field should not be used directly, use {@link #getLegacySerializer()} instead.
      */
-    @Nullable
-    private static LegacyComponentSerializer legacySerializer;
+    // @Nullable
+    // private static LegacyComponentSerializer legacySerializer;
     
     /**
      * Wraps the specified Adventure component.
@@ -56,7 +56,7 @@ public abstract class ComponentHolder extends TextHolder {
     
     /**
      * Gets whether the server platform natively supports Adventure.
-     * Native Adventure support means that eg. {@link ItemMeta#displayName(Component)}
+     * Native Adventure support means that eg. {@link ItemMeta#setDisplayName(String)}
      * is a valid method.
      *
      * @return whether the server platform natively supports Adventure
@@ -95,7 +95,7 @@ public abstract class ComponentHolder extends TextHolder {
      * @return a serializer for converting wrapped values to legacy strings
      * @since 0.10.0
      */
-    private static LegacyComponentSerializer getLegacySerializer() {
+    /*private static LegacyComponentSerializer getLegacySerializer() {
         if (legacySerializer == null) {
             LegacyComponentSerializer.Builder builder = LegacyComponentSerializer.builder()
                     .character(LegacyComponentSerializer.SECTION_CHAR);
@@ -107,7 +107,7 @@ public abstract class ComponentHolder extends TextHolder {
             legacySerializer = builder.build();
         }
         return legacySerializer;
-    }
+    }*/
     
     /**
      * The Adventure component this instance wraps.
@@ -143,11 +143,11 @@ public abstract class ComponentHolder extends TextHolder {
      * @return the contained Adventure component as JSON
      * @since 0.10.0
      */
-    @NotNull
+    /*@NotNull
     @Contract(pure = true)
     public JsonElement asJson() {
         return GsonComponentSerializer.gson().serializeToTree(value);
-    }
+    }*/
     
     @NotNull
     @Contract(pure = true)
@@ -167,10 +167,10 @@ public abstract class ComponentHolder extends TextHolder {
                 && Objects.equals(value, ((ComponentHolder) other).value);
     }
     
-    @NotNull
+    /*@NotNull
     @Contract(pure = true)
     @Override
     public String asLegacyString() {
         return getLegacySerializer().serialize(value);
-    }
+    }*/
 }

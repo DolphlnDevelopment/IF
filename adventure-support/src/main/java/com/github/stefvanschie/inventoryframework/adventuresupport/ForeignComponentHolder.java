@@ -5,7 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +35,12 @@ class ForeignComponentHolder extends ComponentHolder {
         super(value);
         legacy = StringHolder.of(asLegacyString());
     }
-    
+
+    @Override
+    public @NotNull String asLegacyString() {
+        return value.toString(); // TODO: Needs to be done correctly
+    }
+
     @NotNull
     @Contract(pure = true)
     @Override
@@ -51,13 +55,6 @@ class ForeignComponentHolder extends ComponentHolder {
         return legacy.asInventoryTitle(holder, size);
     }
 
-    @NotNull
-    @Contract(pure = true)
-    @Override
-    public Merchant asMerchantTitle() {
-        return legacy.asMerchantTitle();
-    }
-    
     @Override
     public void asItemDisplayName(ItemMeta meta) {
         legacy.asItemDisplayName(meta);
