@@ -58,7 +58,7 @@ public class GuiListener implements Listener {
         }
 
         gui.callOnGlobalClick(event);
-        if (inventory.equals(view.getTopInventory())) {
+        if (event.getRawSlot() == event.getSlot()) {
             gui.callOnTopClick(event);
         } else {
             gui.callOnBottomClick(event);

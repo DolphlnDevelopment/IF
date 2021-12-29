@@ -125,7 +125,7 @@ public class ChestGui extends NamedGui implements MergedGui, InventoryBased {
 
     @Override
     public void click(@NotNull InventoryClickEvent event) {
-        getInventoryComponent().click(this, event, event.getRawSlot());
+        getInventoryComponent().click(this, event, event.getSlot());
     }
 
     @Contract(pure = true)
