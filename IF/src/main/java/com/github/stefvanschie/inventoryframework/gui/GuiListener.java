@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import sun.awt.X11.XSystemTrayPeer;
 
 import java.util.*;
 
@@ -50,6 +51,11 @@ public class GuiListener implements Listener {
 
         InventoryView view = event.getView();
         Inventory inventory = event.getRawSlot() == event.getSlot() ? view.getTopInventory() : view.getBottomInventory();
+
+        System.out.println(event.getRawSlot() == event.getSlot());
+        System.out.println(view.getTopInventory());
+        System.out.println(event.getRawSlot());
+        System.out.println(event.getSlot());
 
         if (inventory == null) {
             gui.callOnOutsideClick(event);
